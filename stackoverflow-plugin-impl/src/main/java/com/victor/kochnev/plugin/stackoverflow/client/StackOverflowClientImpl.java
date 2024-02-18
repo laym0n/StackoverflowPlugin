@@ -1,39 +1,34 @@
 package com.victor.kochnev.plugin.stackoverflow.client;
 
-import com.victor.kochnev.plugin.stackoverflow.api.dto.QuestionResponseModel;
+import com.victor.kochnev.plugin.stackoverflow.api.dto.AnswersResponseDto;
+import com.victor.kochnev.plugin.stackoverflow.api.dto.QuestionsResponseDto;
+import com.victor.kochnev.plugin.stackoverflow.config.StackOverflowClientProperties;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
-@Component
+@Service
+@RequiredArgsConstructor
 public class StackOverflowClientImpl implements StackOverflowClient {
-    private WebClient webClient;
-
-    public StackOverflowClientImpl() {
-        this("https://api.stackexchange.com");
-    }
-
-    public StackOverflowClientImpl(String baseURL) {
-        webClient = WebClient.create(baseURL);
-    }
-
-//    @Override
-//    public AnswersResponse getAnswersResponse(Integer idQuestion) {
-//        return webClient
-//                .get()
-//                .uri("/2.3/questions/{ids}/answers?order=desc&sort=activity&site=stackoverflow", idQuestion)
-//                .accept(MediaType.APPLICATION_JSON)
-//                .retrieve()
-//                .bodyToMono(AnswersResponse.class).block();
-//    }
-
+    private final StackOverflowClientProperties clientProperties;
     @Override
-    public QuestionResponseModel getQuestionsResponse(Integer idQuestion) {
-        return webClient
+    public AnswersResponseDto getAnswersResponse(Integer idQuestion) {
+        return WebClient.create(clientProperties.getHost())
                 .get()
-                .uri("/2.3/questions/{ids}?order=desc&sort=activity&site=stackoverflow", idQuestion)
+                .uri("/2.3/questions/{ids}/answers?order=desc&sort=activity&site=stackoverflow&key={key}", idQuestion, clientProperties.getKey())
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .bodyToMono(QuestionResponseModel.class).block();
+                .bodyToMono(AnswersResponseDto.class).block();
+    }
+
+    @Override
+    public QuestionsResponseDto getQuestionsResponse(Integer idQuestion) {
+        return WebClient.create(clientProperties.getHost())
+                .get()
+                .uri("/2.3/questions/{ids}?order=desc&sort=activity&site=stackoverflow&key={key}", idQuestion, clientProperties.getKey())
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToMono(QuestionsResponseDto.class).block();
     }
 }

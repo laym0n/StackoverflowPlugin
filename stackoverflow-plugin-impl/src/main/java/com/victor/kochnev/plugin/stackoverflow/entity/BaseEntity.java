@@ -27,12 +27,12 @@ public abstract class BaseEntity {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
     @CreatedDate
-    @Column(name = "create_date")
+    @Column(name = "create_date", nullable = false)
     private ZonedDateTime createDate;
-    @Column(name = "last_change_date")
+    @Column(name = "last_change_date", nullable = false)
     private ZonedDateTime lastChangeDate;
     @Version
-    @Column(name = "version")
+    @Column(name = "version", nullable = false)
     private Long version;
 
     @PreUpdate

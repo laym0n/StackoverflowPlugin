@@ -4,12 +4,8 @@ import com.victor.kochnev.integration.plugin.api.dto.CanObserveRequest;
 import com.victor.kochnev.integration.plugin.api.dto.CanObserveResponse;
 import com.victor.kochnev.integration.plugin.api.dto.WebResourceAddRequest;
 import com.victor.kochnev.integration.plugin.api.dto.WebResourceDto;
-import com.victor.kochnev.plugin.stackoverflow.api.dto.AnswersResponse;
-import com.victor.kochnev.plugin.stackoverflow.api.dto.Question;
-import com.victor.kochnev.plugin.stackoverflow.api.dto.QuestionResponseModel;
-import com.victor.kochnev.plugin.stackoverflow.api.dto.QuestionsResponse;
-import com.victor.kochnev.plugin.stackoverflow.client.StackOverflowClient;
-import com.victor.kochnev.plugin.stackoverflow.entity.StackOverflowInfo;
+import com.victor.kochnev.plugin.stackoverflow.converter.StackOverflowMapper;
+import com.victor.kochnev.plugin.stackoverflow.entity.StackOverflowQuestion;
 import com.victor.kochnev.plugin.stackoverflow.exception.ParseDescriptionException;
 import com.victor.kochnev.plugin.stackoverflow.exception.ResourceNotFoundException;
 import com.victor.kochnev.plugin.stackoverflow.service.parser.ParserService;
@@ -20,8 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.stereotype.Service;
 
-import java.net.URI;
-
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -29,23 +23,22 @@ public class WebResourceFacadeImpl implements WebResourceFacade {
     private final WebResourceService webResourceService;
     private final WebClientService webClientService;
     private final ParserService parserService;
+    private final StackOverflowMapper stackOverflowMapper;
 
     @Override
     public CanObserveResponse canObserve(CanObserveRequest request) {
         CanObserveResponse response = new CanObserveResponse();
         response.setIsObservable(true);
-        QuestionResponseModel questionResponse = null;
+        StackOverflowQuestion stackOverflowQuestion = null;
         try {
             Integer questionId = parserService.parseQuestionId(request.getDescription());
-            questionResponse = webClientService.getQuestionResponse(questionId);
+            stackOverflowQuestion = webClientService.getStackOverflowInfo(questionId);
         } catch (ParseDescriptionException | ResourceNotFoundException e) {
             log.info("Bad resource for canObserve " + ExceptionUtils.getMessage(e));
             response.setIsObservable(false);
         }
         if (Boolean.TRUE == response.getIsObservable()) {
-            WebResourceDto webResourceDto = new WebResourceDto();
-            webResourceDto.setName(questionResponse.get().toString());
-            webResourceDto.setDescription(question.getTitle());
+            WebResourceDto webResourceDto = stackOverflowMapper.mapToDto(stackOverflowQuestion);
             response.setWebResource(webResourceDto);
         }
         return response;
@@ -53,23 +46,12 @@ public class WebResourceFacadeImpl implements WebResourceFacade {
 
     @Override
     public WebResourceDto addForObserve(WebResourceAddRequest request) {
-        Question question = getQuestion(request.getDescription());
-        AnswersResponse answersResponse = stackOverflowClient.getAnswersResponse(question.getQuestionId());
+        Integer questionId = parserService.parseQuestionId(request.getDescription());
+        StackOverflowQuestion stackOverflowQuestion = webClientService.getStackOverflowInfo(questionId);
 
-        StackOverflowInfo entity = new StackOverflowInfo();
-        entity.setQuestionId(question.getQuestionId());
-        entity.setAnswersList();
-        webResourceService.create();
-        return null;
-    }
+        stackOverflowQuestion = webResourceService.create(stackOverflowQuestion);
 
-    private Question getQuestion(String description) {
-        Integer idQuestion = parseIdQuestion(description);
-        QuestionsResponse questionsResponse = stackOverflowClient.getQuestionsResponse(idQuestion);
-        if (questionsResponse.getItems().isEmpty()) {
-            throw new ParseDescriptionException("URI not points at question");
-        }
-        Question question = questionsResponse.getItems().get(0);
-        return question;
+        WebResourceDto webResourceDto = stackOverflowMapper.mapToDto(stackOverflowQuestion);
+        return webResourceDto;
     }
 }

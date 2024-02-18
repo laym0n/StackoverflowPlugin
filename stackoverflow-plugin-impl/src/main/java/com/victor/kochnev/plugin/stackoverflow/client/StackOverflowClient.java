@@ -1,7 +1,10 @@
 package com.victor.kochnev.plugin.stackoverflow.client;
 
-import com.victor.kochnev.plugin.stackoverflow.api.dto.QuestionResponseModel;
+import com.victor.kochnev.plugin.stackoverflow.api.dto.AnswersResponseDto;
+import com.victor.kochnev.plugin.stackoverflow.api.dto.QuestionsResponseDto;
 
 public interface StackOverflowClient {
-    QuestionResponseModel getQuestionsResponse(Integer idQuestion);
+    AnswersResponseDto getAnswersResponse(Integer idQuestion);
+
+    QuestionsResponseDto getQuestionsResponse(Integer idQuestion);
 }

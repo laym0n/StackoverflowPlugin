@@ -1,7 +1,7 @@
 package com.victor.kochnev.plugin.stackoverflow.service.webclient;
 
-import com.victor.kochnev.plugin.stackoverflow.api.dto.QuestionResponseModel;
+import com.victor.kochnev.plugin.stackoverflow.entity.StackOverflowQuestion;
 
 public interface WebClientService {
-    QuestionResponseModel getQuestionResponse(Integer questionId);
+    StackOverflowQuestion getStackOverflowInfo(Integer questionId);
 }

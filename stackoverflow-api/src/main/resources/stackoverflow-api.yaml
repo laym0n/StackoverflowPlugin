@@ -90,7 +90,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/QuestionsResponse'
+                $ref: '#/components/schemas/QuestionsResponseDto'
       summary: List Questions
   /questions/featured:
     get:
@@ -165,7 +165,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/QuestionsResponse'
+                $ref: '#/components/schemas/QuestionsResponseDto'
       summary: List Featured Questions
   /questions/no-answers:
     get:
@@ -240,7 +240,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/QuestionsResponse'
+                $ref: '#/components/schemas/QuestionsResponseDto'
       summary: List Questions without Answers
   /questions/unanswered:
     get:
@@ -315,7 +315,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/QuestionsResponse'
+                $ref: '#/components/schemas/QuestionsResponseDto'
       summary: List Unanswered Questions
   /users:
     get:
@@ -571,7 +571,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AnswersResponse'
+                $ref: '#/components/schemas/AnswersResponseDto'
       operationId: listAnswers
       parameters:
         - schema:
@@ -626,21 +626,21 @@ paths:
       description: 'Returns a list of [answers](https://api.stackexchange.com/docs/types/answer).'
 components:
   schemas:
-    QuestionsResponse:
+    QuestionsResponseDto:
       type: object
       properties:
         items:
           type: array
           description: A list of questions.
           items:
-            $ref: '#/components/schemas/Question'
+            $ref: '#/components/schemas/QuestionDto'
         has_more:
           type: boolean
         quota_max:
           type: integer
         quota_remaining:
           type: integer
-    Question:
+    QuestionDto:
       type: object
       properties:
         tags:
@@ -648,7 +648,7 @@ components:
           items:
             type: string
         owner:
-          $ref: '#/components/schemas/QuestionOwner'
+          $ref: '#/components/schemas/ShallowUserDto'
         is_answered:
           type: boolean
         view_count:
@@ -667,7 +667,7 @@ components:
           type: string
         title:
           type: string
-    QuestionOwner:
+    ShallowUserDto:
       type: object
       properties:
         reputation:
@@ -817,7 +817,7 @@ components:
           type: integer
         quota_remaining:
           type: integer
-    Answer:
+    AnswerDto:
       title: Answer
       type: object
       properties:
@@ -830,7 +830,7 @@ components:
         awarded_bounty_users:
           type: array
           items:
-            $ref: '#/components/schemas/ShallowUser'
+            $ref: '#/components/schemas/ShallowUserDto'
         body:
           type: string
         body_markdown:
@@ -858,13 +858,13 @@ components:
         last_edit_date:
           type: integer
         last_editor:
-          $ref: '#/components/schemas/ShallowUser'
+          $ref: '#/components/schemas/ShallowUserDto'
         link:
           type: string
         locked_date:
           type: integer
         owner:
-          $ref: '#/components/schemas/ShallowUser'
+          $ref: '#/components/schemas/ShallowUserDto'
         question_id:
           type: integer
         score:
@@ -881,26 +881,20 @@ components:
           type: integer
         upvoted:
           type: boolean
-    ShallowUser:
-      title: ShallowUser
-      type: object
-      properties:
-        id:
-          type: string
     Comment:
       title: Comment
       type: object
       properties:
         id:
           type: string
-    AnswersResponse:
+    AnswersResponseDto:
       title: AnswersResponse
       type: object
       properties:
         items:
           type: array
           items:
-            $ref: '#/components/schemas/Answer'
+            $ref: '#/components/schemas/AnswerDto'
         has_more:
           type: boolean
         backoff:

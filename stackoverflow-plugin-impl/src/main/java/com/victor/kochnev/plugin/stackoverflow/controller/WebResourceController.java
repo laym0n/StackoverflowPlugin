@@ -1,11 +1,7 @@
 package com.victor.kochnev.plugin.stackoverflow.controller;
 
 import com.victor.kochnev.integration.plugin.api.WebResourceApi;
-import com.victor.kochnev.integration.plugin.api.dto.CanObserveRequest;
-import com.victor.kochnev.integration.plugin.api.dto.CanObserveResponse;
-import com.victor.kochnev.integration.plugin.api.dto.WebResourceAddRequest;
-import com.victor.kochnev.integration.plugin.api.dto.WebResourceDto;
-import com.victor.kochnev.integration.plugin.api.dto.WebResourceRemoveRequest;
+import com.victor.kochnev.integration.plugin.api.dto.*;
 import com.victor.kochnev.plugin.stackoverflow.facade.WebResourceFacade;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
