@@ -19,7 +19,7 @@ public class WebClientServiceImpl implements WebClientService {
     private final StackOverflowMapper stackOverflowMapper;
 
     @Override
-    public StackOverflowQuestion getStackOverflowInfo(Integer questionId) {
+    public StackOverflowQuestion getStackOverflowInfo(Long questionId) {
         QuestionsResponseDto questionResponse = stackOverflowClient.getQuestionsResponse(questionId);
         if (questionResponse.getItems().isEmpty()) {
             throw new ResourceNotFoundException("Question with id " + questionId + " not exists");

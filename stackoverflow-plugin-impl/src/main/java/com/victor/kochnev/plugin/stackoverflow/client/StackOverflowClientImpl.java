@@ -12,8 +12,9 @@ import org.springframework.web.reactive.function.client.WebClient;
 @RequiredArgsConstructor
 public class StackOverflowClientImpl implements StackOverflowClient {
     private final StackOverflowClientProperties clientProperties;
+
     @Override
-    public AnswersResponseDto getAnswersResponse(Integer idQuestion) {
+    public AnswersResponseDto getAnswersResponse(Long idQuestion) {
         return WebClient.create(clientProperties.getHost())
                 .get()
                 .uri("/2.3/questions/{ids}/answers?order=desc&sort=activity&site=stackoverflow&key={key}", idQuestion, clientProperties.getKey())
@@ -23,7 +24,7 @@ public class StackOverflowClientImpl implements StackOverflowClient {
     }
 
     @Override
-    public QuestionsResponseDto getQuestionsResponse(Integer idQuestion) {
+    public QuestionsResponseDto getQuestionsResponse(Long idQuestion) {
         return WebClient.create(clientProperties.getHost())
                 .get()
                 .uri("/2.3/questions/{ids}?order=desc&sort=activity&site=stackoverflow&key={key}", idQuestion, clientProperties.getKey())

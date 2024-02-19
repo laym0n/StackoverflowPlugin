@@ -10,13 +10,13 @@ import java.net.URI;
 @Slf4j
 public class ParserServiceImpl implements ParserService {
     @Override
-    public Integer parseQuestionId(String resourceDescription) {
+    public Long parseQuestionId(String resourceDescription) {
         try {
             new URI(resourceDescription);
             if (!resourceDescription.startsWith("https://stackoverflow.com")) {
                 throw new ParseDescriptionException("URI not starts with https://stackoverflow.com");
             }
-            return Integer.parseInt(resourceDescription.split("/")[4]);
+            return Long.parseLong(resourceDescription.split("/")[4]);
         } catch (Exception e) {
             throw new ParseDescriptionException(resourceDescription + " can be parsed", e);
         }

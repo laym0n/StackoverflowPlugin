@@ -1,0 +1,64 @@
+{
+  "items": [
+    {
+      "owner": {
+        "account_id": 1163647,
+        "reputation": 1002,
+        "user_id": 1142674,
+        "user_type": "registered",
+        "accept_rate": 60,
+        "profile_image": "https://i.stack.imgur.com/hE5Xg.jpg?s=256&g=1",
+        "display_name": "ygweric",
+        "link": "https://stackoverflow.com/users/1142674/ygweric"
+      },
+      "is_accepted": false,
+      "score": 2,
+      "last_activity_date": 1384151318,
+      "creation_date": 1384151318,
+      "answer_id": 19900155,
+      "question_id": 3946797,
+      "content_license": "CC BY-SA 3.0"
+    },
+    {
+      "owner": {
+        "account_id": 663925,
+        "reputation": 21,
+        "user_id": 490151,
+        "user_type": "unregistered",
+        "profile_image": "https://www.gravatar.com/avatar/6d144f550acb85429100e71d636cf3de?s=256&d=identicon&r=PG",
+        "display_name": "muggel",
+        "link": "https://stackoverflow.com/users/490151/muggel"
+      },
+      "is_accepted": false,
+      "score": 2,
+      "last_activity_date": 1352889770,
+      "last_edit_date": 1352889770,
+      "creation_date": 1288273056,
+      "answer_id": 4043427,
+      "question_id": 3946797,
+      "content_license": "CC BY-SA 3.0"
+    },
+    {
+      "owner": {
+        "account_id": 79031,
+        "reputation": 6489,
+        "user_id": 224440,
+        "user_type": "registered",
+        "profile_image": "https://www.gravatar.com/avatar/3d4fcb6e03c2ff4becf305c6d21b6028?s=256&d=identicon&r=PG",
+        "display_name": "Mihir Mathuria",
+        "link": "https://stackoverflow.com/users/224440/mihir-mathuria"
+      },
+      "is_accepted": true,
+      "score": 27,
+      "last_activity_date": 1287185743,
+      "last_edit_date": 1287185743,
+      "creation_date": 1287185339,
+      "answer_id": 3946862,
+      "question_id": 3946797,
+      "content_license": "CC BY-SA 2.5"
+    }
+  ],
+  "has_more": false,
+  "quota_max": 10000,
+  "quota_remaining": 9848
+}

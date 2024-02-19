@@ -1,0 +1,2 @@
+DELETE
+FROM stackoverflow_question;

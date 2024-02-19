@@ -12,7 +12,8 @@ import java.time.ZonedDateTime;
 @AllArgsConstructor
 @Builder
 public class StackOverflowAnswer {
-    private Integer userId;
+    private Long answerId;
+    private Long userId;
     private String userName;
     private ZonedDateTime createDate;
 }

@@ -39,6 +39,6 @@ public interface StackOverflowMapper {
     WebResourceDto mapToDto(StackOverflowQuestion question);
 
     default ZonedDateTime mapToLocalDateTime(Long aLong) {
-        return ZonedDateTime.ofInstant(Instant.ofEpochMilli(aLong), ZoneOffset.UTC);
+        return ZonedDateTime.ofInstant(Instant.ofEpochSecond(aLong), ZoneOffset.UTC);
     }
 }

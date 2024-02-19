@@ -4,7 +4,7 @@ import com.victor.kochnev.plugin.stackoverflow.api.dto.AnswersResponseDto;
 import com.victor.kochnev.plugin.stackoverflow.api.dto.QuestionsResponseDto;
 
 public interface StackOverflowClient {
-    AnswersResponseDto getAnswersResponse(Integer idQuestion);
+    AnswersResponseDto getAnswersResponse(Long idQuestion);
 
-    QuestionsResponseDto getQuestionsResponse(Integer idQuestion);
+    QuestionsResponseDto getQuestionsResponse(Long idQuestion);
 }

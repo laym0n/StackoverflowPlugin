@@ -31,7 +31,7 @@ public class WebResourceFacadeImpl implements WebResourceFacade {
         response.setIsObservable(true);
         StackOverflowQuestion stackOverflowQuestion = null;
         try {
-            Integer questionId = parserService.parseQuestionId(request.getDescription());
+            Long questionId = parserService.parseQuestionId(request.getDescription());
             stackOverflowQuestion = webClientService.getStackOverflowInfo(questionId);
         } catch (ParseDescriptionException | ResourceNotFoundException e) {
             log.info("Bad resource for canObserve " + ExceptionUtils.getMessage(e));
@@ -46,7 +46,7 @@ public class WebResourceFacadeImpl implements WebResourceFacade {
 
     @Override
     public WebResourceDto addForObserve(WebResourceAddRequest request) {
-        Integer questionId = parserService.parseQuestionId(request.getDescription());
+        Long questionId = parserService.parseQuestionId(request.getDescription());
         StackOverflowQuestion stackOverflowQuestion = webClientService.getStackOverflowInfo(questionId);
 
         stackOverflowQuestion = webResourceService.create(stackOverflowQuestion);
