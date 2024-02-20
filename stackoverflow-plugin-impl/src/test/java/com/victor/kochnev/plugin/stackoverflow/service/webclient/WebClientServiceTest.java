@@ -21,7 +21,7 @@ class WebClientServiceTest extends BaseBootTest {
     StackOverflowClientProperties clientProperties;
 
     @Test
-    void test() {
+    void testGetStackOverflowInfo() {
         //Assign
         Long questionId = 3946797L;
         wireMockServer.stubFor(

@@ -2,12 +2,12 @@ package com.victor.kochnev.plugin.stackoverflow.client;
 
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.victor.kochnev.plugin.stackoverflow.BaseBootTest;
-import com.victor.kochnev.plugin.stackoverflow.api.dto.AnswerDto;
-import com.victor.kochnev.plugin.stackoverflow.api.dto.AnswersResponseDto;
-import com.victor.kochnev.plugin.stackoverflow.api.dto.QuestionDto;
-import com.victor.kochnev.plugin.stackoverflow.api.dto.QuestionsResponseDto;
+import com.victor.kochnev.plugin.stackoverflow.api.dto.*;
 import com.victor.kochnev.plugin.stackoverflow.config.StackOverflowClientProperties;
+import com.victor.kochnev.plugin.stackoverflow.exception.StackOverflowIntegrationException;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.Instant;
@@ -52,6 +52,26 @@ class StackOverflowClientTest extends BaseBootTest {
         assertEquals("jps", questionDto.getOwner().getDisplayName());
     }
 
+    @ParameterizedTest
+    @ValueSource(ints = {400, 500})
+    void testGetQuestionsResponse_NotSuccess(int httpStatus) {
+        //Assign
+        Long questionId = 3946797L;
+        wireMockServer.stubFor(
+                WireMock.get(String.format("/2.3/questions/%s?order=desc&sort=activity&site=stackoverflow&key=%s", questionId, clientProperties.getKey()))
+                        .willReturn(wireMockResponseJson("error-response.json").withStatus(httpStatus)));
+
+        //Action
+        var exception = assertThrows(StackOverflowIntegrationException.class, () -> stackOverflowClient.getQuestionsResponse(questionId));
+
+        //Assert
+        ErrorResponseDto errorResponseDto = exception.getErrorResponseDto();
+        assertNotNull(errorResponseDto);
+        assertEquals(400L, errorResponseDto.getErrorId());
+        assertEquals("ids", errorResponseDto.getErrorMessage());
+        assertEquals("bad_parameter", errorResponseDto.getErrorName());
+    }
+
     @Test
     void testGetAnswersResponse() {
         //Assign
@@ -78,5 +98,25 @@ class StackOverflowClientTest extends BaseBootTest {
         assertNotNull(answerDto.getOwner());
         assertEquals(1142674L, answerDto.getOwner().getUserId());
         assertEquals("ygweric", answerDto.getOwner().getDisplayName());
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {400, 500})
+    void testGetAnswersResponse_NotSuccess(int httpStatus) {
+        //Assign
+        Long questionId = 3946797L;
+        wireMockServer.stubFor(
+                WireMock.get(String.format("/2.3/questions/%s/answers?order=desc&sort=activity&site=stackoverflow&key=%s", questionId, clientProperties.getKey()))
+                        .willReturn(wireMockResponseJson("error-response.json").withStatus(httpStatus)));
+
+        //Action
+        var exception = assertThrows(StackOverflowIntegrationException.class, () -> stackOverflowClient.getAnswersResponse(questionId));
+
+        //Assert
+        ErrorResponseDto errorResponseDto = exception.getErrorResponseDto();
+        assertNotNull(errorResponseDto);
+        assertEquals(400L, errorResponseDto.getErrorId());
+        assertEquals("ids", errorResponseDto.getErrorMessage());
+        assertEquals("bad_parameter", errorResponseDto.getErrorName());
     }
 }

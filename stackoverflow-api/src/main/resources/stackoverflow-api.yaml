@@ -85,12 +85,18 @@ paths:
             type: string
             default: stackoverflow
       responses:
-        default:
+        200:
           description: Success
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/QuestionsResponseDto'
+        error:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
       summary: List Questions
   /questions/featured:
     get:
@@ -903,3 +909,13 @@ components:
           type: integer
         quota_remaining:
           type: integer
+    ErrorResponseDto:
+      title: AnswersResponse
+      type: object
+      properties:
+        error_id:
+          type: integer
+        error_message:
+          type: string
+        error_name:
+          type: string
