@@ -28,6 +28,12 @@ public abstract class BaseControllerTest extends BaseBootTest {
         return mvc.perform(request).andReturn();
     }
 
+    @SneakyThrows
+    public MvcResult delete(String uri, Object body) {
+        var request = getRequest(uri, body, HttpMethod.DELETE);
+        return mvc.perform(request).andReturn();
+    }
+
     protected void assertHttpStatusOk(MvcResult mvcResult) {
         assertHttpStatus(mvcResult, HttpStatus.OK);
     }
