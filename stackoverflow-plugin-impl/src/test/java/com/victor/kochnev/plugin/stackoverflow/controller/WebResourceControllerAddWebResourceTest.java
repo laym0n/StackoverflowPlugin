@@ -18,7 +18,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class WebResourceControllerTest extends BaseControllerTest {
+class WebResourceControllerAddWebResourceTest extends BaseControllerTest {
     private static final String ADD_ENDPOINT = "/webresource/add";
 
     @Autowired
@@ -34,7 +34,7 @@ class WebResourceControllerTest extends BaseControllerTest {
         ZonedDateTime creationDate = ZonedDateTime.now().truncatedTo(ChronoUnit.SECONDS);
         Long userId = 2L;
         String userName = "userName";
-        WebResourceAddRequest request = new WebResourceAddRequest();
+        var request = new WebResourceAddRequest();
         request.setDescription("https://stackoverflow.com/questions/3946797/cgaffinetransformmakescale-makes-uiview-jump-to-original-size-before-scale");
         wireMockServer.stubFor(WireMock.get(String.format("/2.3/questions/%s?order=desc&sort=activity&site=stackoverflow&key=%s", questionId, clientProperties.getKey()))
                 .willReturn(wireMockResponse(prepareQuestionsResponseDto(questionId, title))));
@@ -74,7 +74,7 @@ class WebResourceControllerTest extends BaseControllerTest {
     void testAddWebResource_StackOverflowIntegrationException_Expect503() {
         //Assign
         Long questionId = 3946797L;
-        WebResourceAddRequest request = new WebResourceAddRequest();
+        var request = new WebResourceAddRequest();
         request.setDescription("https://stackoverflow.com/questions/3946797/cgaffinetransformmakescale-makes-uiview-jump-to-original-size-before-scale");
         wireMockServer.stubFor(WireMock.get(String.format("/2.3/questions/%s?order=desc&sort=activity&site=stackoverflow&key=%s", questionId, clientProperties.getKey()))
                 .willReturn(wireMockResponseJson("error-response.json").withStatus(400)));
@@ -91,7 +91,7 @@ class WebResourceControllerTest extends BaseControllerTest {
     @Test
     void testAddWebResource_BadRequest_Expect400() {
         //Assign
-        WebResourceAddRequest request = new WebResourceAddRequest();
+        var request = new WebResourceAddRequest();
 
         //Action
         MvcResult mvcResult = post(ADD_ENDPOINT, request);

@@ -10,4 +10,5 @@ import java.util.UUID;
 @Repository
 public interface StackOverflowQuestionRepository extends JpaRepository<StackOverflowQuestion, UUID> {
     Optional<StackOverflowQuestion> findByQuestionId(Long questionId);
+    int deleteByQuestionId(Long questionId);
 }

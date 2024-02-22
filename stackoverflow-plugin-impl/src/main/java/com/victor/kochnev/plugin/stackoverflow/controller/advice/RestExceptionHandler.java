@@ -3,6 +3,7 @@ package com.victor.kochnev.plugin.stackoverflow.controller.advice;
 import com.victor.kochnev.integration.plugin.api.dto.ErrorMessageDto;
 import com.victor.kochnev.plugin.stackoverflow.api.dto.ErrorResponseDto;
 import com.victor.kochnev.plugin.stackoverflow.controller.ControllerScanMarker;
+import com.victor.kochnev.plugin.stackoverflow.exception.ResourceNotFoundException;
 import com.victor.kochnev.plugin.stackoverflow.exception.StackOverflowIntegrationException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -22,6 +23,14 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestControllerAdvice(basePackageClasses = ControllerScanMarker.class)
 @Slf4j
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<Object> handleTopLevelException(ResourceNotFoundException ex, WebRequest request) {
+        log.error(ExceptionUtils.getMessage(ex));
+        ErrorMessageDto errorMessageDto = new ErrorMessageDto();
+        errorMessageDto.setMessage("Not found " + ExceptionUtils.getMessage(ex));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessageDto);
+    }
 
     @ExceptionHandler(StackOverflowIntegrationException.class)
     public ResponseEntity<Object> handleTopLevelException(StackOverflowIntegrationException ex, WebRequest request) {

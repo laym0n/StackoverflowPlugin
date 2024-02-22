@@ -1,9 +1,6 @@
 package com.victor.kochnev.plugin.stackoverflow.facade;
 
-import com.victor.kochnev.integration.plugin.api.dto.CanObserveRequest;
-import com.victor.kochnev.integration.plugin.api.dto.CanObserveResponse;
-import com.victor.kochnev.integration.plugin.api.dto.WebResourceAddRequest;
-import com.victor.kochnev.integration.plugin.api.dto.WebResourceDto;
+import com.victor.kochnev.integration.plugin.api.dto.*;
 import com.victor.kochnev.plugin.stackoverflow.converter.StackOverflowMapper;
 import com.victor.kochnev.plugin.stackoverflow.entity.StackOverflowQuestion;
 import com.victor.kochnev.plugin.stackoverflow.exception.ParseDescriptionException;
@@ -53,5 +50,11 @@ public class WebResourceFacadeImpl implements WebResourceFacade {
 
         WebResourceDto webResourceDto = stackOverflowMapper.mapToDto(stackOverflowQuestion);
         return webResourceDto;
+    }
+
+    @Override
+    public void removeFromObserve(WebResourceRemoveRequest request) {
+        long questionId = Long.parseLong(request.getName());
+        webResourceService.deleteByQuestionId(questionId);
     }
 }

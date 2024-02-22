@@ -17,19 +17,20 @@ public class WebResourceController implements WebResourceApi {
     private final WebResourceFacade webResourceFacade;
 
     @Override
-    public ResponseEntity<WebResourceDto> add(WebResourceAddRequest webResourceAddRequest) {
-        WebResourceDto webResourceDto = webResourceFacade.addForObserve(webResourceAddRequest);
+    public ResponseEntity<WebResourceDto> add(WebResourceAddRequest request) {
+        WebResourceDto webResourceDto = webResourceFacade.addForObserve(request);
         return ResponseEntity.ok(webResourceDto);
     }
 
     @Override
-    public ResponseEntity<CanObserveResponse> canObserve(CanObserveRequest canObserveRequest) {
-        CanObserveResponse response = webResourceFacade.canObserve(canObserveRequest);
+    public ResponseEntity<CanObserveResponse> canObserve(CanObserveRequest request) {
+        CanObserveResponse response = webResourceFacade.canObserve(request);
         return ResponseEntity.ok(response);
     }
 
     @Override
-    public ResponseEntity<Void> remove(WebResourceRemoveRequest webResourceRemoveRequest) {
-        return null;
+    public ResponseEntity<Void> remove(WebResourceRemoveRequest request) {
+        webResourceFacade.removeFromObserve(request);
+        return ResponseEntity.ok().build();
     }
 }
