@@ -1,0 +1,66 @@
+{
+  "items": [
+    {
+      "tags": [
+        "java",
+        "constructor"
+      ],
+      "owner": {
+        "account_id": 15622,
+        "reputation": 80558,
+        "user_id": 33203,
+        "user_type": "registered",
+        "accept_rate": 81,
+        "profile_image": "https://www.gravatar.com/avatar/07856b52198509b8bd0d2e5418d0bf37?s=256&d=identicon&r=PG",
+        "display_name": "ashokgelal",
+        "link": "https://stackoverflow.com/users/33203/ashokgelal"
+      },
+      "is_answered": true,
+      "view_count": 1147598,
+      "protected_date": 1373306296,
+      "accepted_answer_id": 285184,
+      "answer_count": 22,
+      "score": 2674,
+      "last_activity_date": 1705674222,
+      "creation_date": 1226520619,
+      "last_edit_date": 1226521019,
+      "question_id": 285177,
+      "content_license": "CC BY-SA 2.5",
+      "link": "https://stackoverflow.com/questions/285177/how-do-i-call-one-constructor-from-another-in-java",
+      "title": "How do I call one constructor from another in Java?"
+    },
+    {
+      "tags": [
+        "java",
+        "java-8",
+        "java-stream"
+      ],
+      "owner": {
+        "account_id": 1869832,
+        "reputation": 5159,
+        "user_id": 1692342,
+        "user_type": "registered",
+        "accept_rate": 61,
+        "profile_image": "https://www.gravatar.com/avatar/1d368ad2d022237279a697202cca3510?s=256&d=identicon&r=PG",
+        "display_name": "user1692342",
+        "link": "https://stackoverflow.com/users/1692342/user1692342"
+      },
+      "is_answered": true,
+      "view_count": 58813,
+      "protected_date": 1611650015,
+      "accepted_answer_id": 49889657,
+      "answer_count": 4,
+      "score": 32,
+      "last_activity_date": 1675802243,
+      "creation_date": 1524001494,
+      "last_edit_date": 1524009825,
+      "question_id": 49887953,
+      "content_license": "CC BY-SA 3.0",
+      "link": "https://stackoverflow.com/questions/49887953/java-8-stream-to-collect-a-map-of-list-of-items",
+      "title": "Java 8 stream to collect a Map of List of items"
+    }
+  ],
+  "has_more": true,
+  "quota_max": 10000,
+  "quota_remaining": 9975
+}

@@ -3,10 +3,13 @@ package com.victor.kochnev.plugin.stackoverflow.service.webresource;
 import com.victor.kochnev.plugin.stackoverflow.entity.StackOverflowQuestion;
 import com.victor.kochnev.plugin.stackoverflow.exception.ResourceNotFoundException;
 import com.victor.kochnev.plugin.stackoverflow.repository.StackOverflowQuestionRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.ZonedDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -27,5 +30,25 @@ public class WebResourceServiceImpl implements WebResourceService {
         if (countDeleted == 0) {
             throw new ResourceNotFoundException("Web resource with questionId " + questionId);
         }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<StackOverflowQuestion> getResourcesWithLastCheckUpdateBefore(ZonedDateTime latestDateTimeForCheck) {
+        return questionRepository.findByLastCheckUpdateLessThanEqual(latestDateTimeForCheck);
+    }
+
+    @Override
+    @Transactional
+    public void updateAllAndSetChechUpdateTime(List<StackOverflowQuestion> updatedQuestions, ZonedDateTime newCheckUpdateTime) {
+        updatedQuestions.forEach(question -> question.setLastCheckUpdate(newCheckUpdateTime));
+        questionRepository.saveAll(updatedQuestions);
+    }
+
+    @Override
+    @Transactional
+    public void setCheckUpdateTimeForAll(List<StackOverflowQuestion> stackOverflowQuestions, ZonedDateTime newCheckUpdateTime) {
+        List<Long> questionIdList = stackOverflowQuestions.stream().map(StackOverflowQuestion::getQuestionId).toList();
+        questionRepository.updateLastCheckUpdateByQuestionIdIn(newCheckUpdateTime, questionIdList);
     }
 }

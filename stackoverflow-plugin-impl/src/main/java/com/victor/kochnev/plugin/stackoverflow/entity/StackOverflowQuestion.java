@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,9 @@ public class StackOverflowQuestion extends BaseEntity {
     private Long questionId;
     @Column(name = "title", nullable = false)
     private String title;
+    @Column(name = "last_check_update", nullable = false)
+    @Builder.Default
+    private ZonedDateTime lastCheckUpdate = ZonedDateTime.now();
     @Column(name = "answers")
     @Convert(converter = StackOverflowAnswerConverter.class)
     @Builder.Default

@@ -1,0 +1,37 @@
+{
+  "items": [
+    {
+      "tags": [
+        "objective-c",
+        "cocoa-touch",
+        "ipad",
+        "ios4"
+      ],
+      "owner": {
+        "account_id": 114501,
+        "reputation": 11457,
+        "user_id": 301043,
+        "user_type": "registered",
+        "accept_rate": 88,
+        "profile_image": "https://www.gravatar.com/avatar/c7fdf44ae1434bb09d76a7619a973950?s=256&d=identicon&r=PG",
+        "display_name": "jps",
+        "link": "https://stackoverflow.com/users/301043/jps"
+      },
+      "is_answered": true,
+      "view_count": 21973,
+      "accepted_answer_id": 3946862,
+      "answer_count": 3,
+      "score": 12,
+      "last_activity_date": 1384151318,
+      "creation_date": 1287184218,
+      "last_edit_date": 1287185009,
+      "question_id": 3946797,
+      "content_license": "CC BY-SA 2.5",
+      "link": "https://stackoverflow.com/questions/3946797/cgaffinetransformmakescale-makes-uiview-jump-to-original-size-before-scale",
+      "title": "CGAffineTransformMakeScale Makes UIView Jump to Original Size before scale"
+    }
+  ],
+  "has_more": false,
+  "quota_max": 10000,
+  "quota_remaining": 9975
+}

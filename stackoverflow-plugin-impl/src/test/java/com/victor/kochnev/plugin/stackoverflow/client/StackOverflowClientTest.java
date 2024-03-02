@@ -3,6 +3,7 @@ package com.victor.kochnev.plugin.stackoverflow.client;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.victor.kochnev.plugin.stackoverflow.BaseBootTest;
 import com.victor.kochnev.plugin.stackoverflow.api.dto.*;
+import com.victor.kochnev.plugin.stackoverflow.client.stackoverflow.StackOverflowClient;
 import com.victor.kochnev.plugin.stackoverflow.config.StackOverflowClientProperties;
 import com.victor.kochnev.plugin.stackoverflow.exception.StackOverflowIntegrationException;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ import java.time.Instant;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -111,6 +113,84 @@ class StackOverflowClientTest extends BaseBootTest {
 
         //Action
         var exception = assertThrows(StackOverflowIntegrationException.class, () -> stackOverflowClient.getAnswersResponse(questionId));
+
+        //Assert
+        ErrorResponseDto errorResponseDto = exception.getErrorResponseDto();
+        assertNotNull(errorResponseDto);
+        assertEquals(400L, errorResponseDto.getErrorId());
+        assertEquals("ids", errorResponseDto.getErrorMessage());
+        assertEquals("bad_parameter", errorResponseDto.getErrorName());
+    }
+
+    @Test
+    void testGetQuestionsResponse_MultipleParameters() {
+        //Assign
+        List<Long> questionIdsList = List.of(3946797L, 285177L, 49887953L);
+        wireMockServer.stubFor(
+                WireMock.get(String.format("/2.3/questions/%s?order=desc&sort=activity&site=stackoverflow&key=%s&page=%s", "3946797;285177;49887953", clientProperties.getKey(), 1))
+                        .willReturn(wireMockResponseJson("question-response-page1.json")));
+
+        //Action
+        QuestionsResponseDto actualResponse = stackOverflowClient.getQuestionsResponse(questionIdsList, 1);
+
+        //Assert
+        assertTrue(actualResponse.getHasMore());
+        assertEquals(2, actualResponse.getItems().size());
+
+        assertEquals(285177L, actualResponse.getItems().get(0).getQuestionId());
+        assertEquals(49887953L, actualResponse.getItems().get(1).getQuestionId());
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {400, 500})
+    void testGetQuestionsResponse_MultipleParameters_NotSuccess(int httpStatus) {
+        //Assign
+        List<Long> questionIdsList = List.of(3946797L, 285177L, 49887953L);
+        wireMockServer.stubFor(
+                WireMock.get(String.format("/2.3/questions/%s?order=desc&sort=activity&site=stackoverflow&key=%s&page=%s", "3946797;285177;49887953", clientProperties.getKey(), 1))
+                        .willReturn(wireMockResponseJson("error-response.json").withStatus(httpStatus)));
+
+        //Action
+        var exception = assertThrows(StackOverflowIntegrationException.class, () -> stackOverflowClient.getQuestionsResponse(questionIdsList, 1));
+
+        //Assert
+        ErrorResponseDto errorResponseDto = exception.getErrorResponseDto();
+        assertNotNull(errorResponseDto);
+        assertEquals(400L, errorResponseDto.getErrorId());
+        assertEquals("ids", errorResponseDto.getErrorMessage());
+        assertEquals("bad_parameter", errorResponseDto.getErrorName());
+    }
+
+    @Test
+    void testGetAnswersResponse_MultipleParameters() {
+        //Assign
+        List<Long> questionIdsList = List.of(3946797L, 285177L, 49887953L);
+        wireMockServer.stubFor(
+                WireMock.get(String.format("/2.3/questions/%s/answers?order=desc&sort=activity&site=stackoverflow&key=%s&page=%s", "3946797;285177;49887953", clientProperties.getKey(), 1))
+                        .willReturn(wireMockResponseJson("answers-response-page1.json")));
+
+        //Action
+        AnswersResponseDto actualResponse = stackOverflowClient.getAnswersResponse(questionIdsList, 1);
+
+        //Assert
+        assertTrue(actualResponse.getHasMore());
+        assertEquals(16, actualResponse.getItems().size());
+
+        assertEquals(65745848L, actualResponse.getItems().get(0).getAnswerId());
+        assertEquals(75377044L, actualResponse.getItems().get(1).getAnswerId());
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {400, 500})
+    void testGetAnswersResponse_MultipleParameters_NotSuccess(int httpStatus) {
+        //Assign
+        List<Long> questionIdsList = List.of(3946797L, 285177L, 49887953L);
+        wireMockServer.stubFor(
+                WireMock.get(String.format("/2.3/questions/%s/answers?order=desc&sort=activity&site=stackoverflow&key=%s&page=%s", "3946797;285177;49887953", clientProperties.getKey(), 1))
+                        .willReturn(wireMockResponseJson("error-response.json").withStatus(httpStatus)));
+
+        //Action
+        var exception = assertThrows(StackOverflowIntegrationException.class, () -> stackOverflowClient.getAnswersResponse(questionIdsList, 1));
 
         //Assert
         ErrorResponseDto errorResponseDto = exception.getErrorResponseDto();

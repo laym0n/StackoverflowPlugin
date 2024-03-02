@@ -25,6 +25,7 @@ public interface StackOverflowMapper {
     @Mapping(target = "questionId", source = "question.questionId")
     @Mapping(target = "answersList", source = "answersList")
     @Mapping(target = "commentsList", ignore = true)
+    @Mapping(target = "lastCheckUpdate", ignore = true)
     StackOverflowQuestion mapToEntity(QuestionDto question, List<AnswerDto> answersList);
 
     List<StackOverflowAnswer> mapToValueObject(List<AnswerDto> answerList);
