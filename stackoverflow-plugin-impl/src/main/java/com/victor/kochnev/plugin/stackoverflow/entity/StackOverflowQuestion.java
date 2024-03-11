@@ -25,7 +25,7 @@ import java.util.List;
 @SuperBuilder
 @NoArgsConstructor
 public class StackOverflowQuestion extends BaseEntity {
-    @Column(name = "question_id", nullable = false)
+    @Column(name = "question_id", nullable = false, unique = true)
     private Long questionId;
     @Column(name = "title", nullable = false)
     private String title;

@@ -1,6 +1,6 @@
 package com.victor.kochnev.plugin.stackoverflow.facade;
 
-import com.victor.kochnev.integration.plugin.api.dto.*;
+import com.victor.kochnev.platform.api.dto.*;
 import com.victor.kochnev.plugin.stackoverflow.converter.StackOverflowMapper;
 import com.victor.kochnev.plugin.stackoverflow.entity.StackOverflowQuestion;
 import com.victor.kochnev.plugin.stackoverflow.exception.ParseDescriptionException;
@@ -71,12 +71,15 @@ public class WebResourceFacadeImpl implements WebResourceFacade {
     public void checkUpdateWebResources(Duration minimalTimeBetweenChecks) {
         ZonedDateTime latestDateTimeForCheck = ZonedDateTime.now().minus(minimalTimeBetweenChecks);
         List<StackOverflowQuestion> questionListForCheck = webResourceService.getResourcesWithLastCheckUpdateBefore(latestDateTimeForCheck);
+        if (questionListForCheck.isEmpty()) {
+            return;
+        }
         List<Long> questionIds = questionListForCheck.stream().map(StackOverflowQuestion::getQuestionId).toList();
         List<StackOverflowQuestion> actualQuestionsList = stackOverflowClientWrapperService.findAllByQuestionIds(questionIds);
         CheckUpdateResult checkUpdateResult = checkUpdateStrategy.checkUpdates(questionListForCheck, actualQuestionsList);
         List<StackOverflowQuestion> updatedQuestions = checkUpdateResult.updatedResourceList().stream().map(UpdatedResource::question).toList();
         ZonedDateTime newCheckUpdateTime = ZonedDateTime.now();
-        webResourceService.updateAllAndSetChechUpdateTime(updatedQuestions, newCheckUpdateTime);
+        webResourceService.updateAllAndSetCheckUpdateTime(updatedQuestions, newCheckUpdateTime);
         webResourceService.setCheckUpdateTimeForAll(checkUpdateResult.notUpdatedQuestions(), newCheckUpdateTime);
         checkUpdatePlatformClientWrapper.sendNotification(checkUpdateResult.updatedResourceList());
     }

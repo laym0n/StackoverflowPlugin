@@ -1,10 +1,10 @@
 package com.victor.kochnev.plugin.stackoverflow.controller;
 
 import com.github.tomakehurst.wiremock.client.WireMock;
-import com.victor.kochnev.integration.plugin.api.dto.CanObserveRequest;
-import com.victor.kochnev.integration.plugin.api.dto.CanObserveResponse;
-import com.victor.kochnev.integration.plugin.api.dto.ErrorMessageDto;
-import com.victor.kochnev.integration.plugin.api.dto.WebResourceDto;
+import com.victor.kochnev.platform.api.dto.CanObserveRequest;
+import com.victor.kochnev.platform.api.dto.CanObserveResponse;
+import com.victor.kochnev.platform.api.dto.ErrorMessageDto;
+import com.victor.kochnev.platform.api.dto.WebResourceDto;
 import com.victor.kochnev.plugin.stackoverflow.BaseControllerTest;
 import com.victor.kochnev.plugin.stackoverflow.api.dto.*;
 import com.victor.kochnev.plugin.stackoverflow.config.StackOverflowClientProperties;
@@ -20,7 +20,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class WebResourceControllerCanObserveTest extends BaseControllerTest {
-    private static final String CAN_OBSERVE_ENDPOINT = "/can/observe";
+    private static final String CAN_OBSERVE_ENDPOINT = "/webresource/can/observe";
 
     @Autowired
     StackOverflowClientProperties clientProperties;

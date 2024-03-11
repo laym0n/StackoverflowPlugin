@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface StackOverflowClient {
     AnswersResponseDto getAnswersResponse(Long idQuestion);
+
     AnswersResponseDto getAnswersResponse(List<Long> questionIds, int pageNum);
 
     QuestionsResponseDto getQuestionsResponse(Long idQuestion);

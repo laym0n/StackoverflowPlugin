@@ -1,6 +1,6 @@
 package com.victor.kochnev.plugin.stackoverflow.controller;
 
-import com.victor.kochnev.integration.plugin.api.dto.WebResourceRemoveRequest;
+import com.victor.kochnev.platform.api.dto.WebResourceRemoveRequest;
 import com.victor.kochnev.plugin.stackoverflow.BaseControllerTest;
 import com.victor.kochnev.plugin.stackoverflow.builder.StackOverflowQuestionBuilder;
 import com.victor.kochnev.plugin.stackoverflow.config.StackOverflowClientProperties;
@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class WebResourceControllerRemoveTest extends BaseControllerTest {
-    private static final String WEBRESOURCE_REMOVE_ENDPOINT = "/webresource/remove";
+    private static final String WEBRESOURCE_REMOVE_ENDPOINT = "/webresource";
 
     @Autowired
     StackOverflowClientProperties clientProperties;

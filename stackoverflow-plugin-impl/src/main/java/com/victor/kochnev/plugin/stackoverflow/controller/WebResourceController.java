@@ -1,7 +1,7 @@
 package com.victor.kochnev.plugin.stackoverflow.controller;
 
-import com.victor.kochnev.integration.plugin.api.WebResourceApi;
-import com.victor.kochnev.integration.plugin.api.dto.*;
+import com.victor.kochnev.platform.api.WebResourceApi;
+import com.victor.kochnev.platform.api.dto.*;
 import com.victor.kochnev.plugin.stackoverflow.facade.WebResourceFacade;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

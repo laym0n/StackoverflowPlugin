@@ -1,6 +1,6 @@
 package com.victor.kochnev.plugin.stackoverflow.controller.advice;
 
-import com.victor.kochnev.integration.plugin.api.dto.ErrorMessageDto;
+import com.victor.kochnev.platform.api.dto.ErrorMessageDto;
 import com.victor.kochnev.plugin.stackoverflow.api.dto.ErrorResponseDto;
 import com.victor.kochnev.plugin.stackoverflow.controller.ControllerScanMarker;
 import com.victor.kochnev.plugin.stackoverflow.exception.ResourceNotFoundException;

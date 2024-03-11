@@ -1,6 +1,6 @@
 package com.victor.kochnev.plugin.stackoverflow.facade;
 
-import com.victor.kochnev.integration.plugin.api.dto.*;
+import com.victor.kochnev.platform.api.dto.*;
 
 import java.time.Duration;
 

@@ -1,5 +1,6 @@
 package com.victor.kochnev.plugin.stackoverflow.service.webresource;
 
+import com.victor.kochnev.plugin.stackoverflow.converter.StackOverflowMapper;
 import com.victor.kochnev.plugin.stackoverflow.entity.StackOverflowQuestion;
 import com.victor.kochnev.plugin.stackoverflow.exception.ResourceNotFoundException;
 import com.victor.kochnev.plugin.stackoverflow.repository.StackOverflowQuestionRepository;
@@ -16,6 +17,7 @@ import java.util.List;
 @Slf4j
 public class WebResourceServiceImpl implements WebResourceService {
     private final StackOverflowQuestionRepository questionRepository;
+    private final StackOverflowMapper mapper;
 
     @Override
     @Transactional
@@ -40,9 +42,12 @@ public class WebResourceServiceImpl implements WebResourceService {
 
     @Override
     @Transactional
-    public void updateAllAndSetChechUpdateTime(List<StackOverflowQuestion> updatedQuestions, ZonedDateTime newCheckUpdateTime) {
-        updatedQuestions.forEach(question -> question.setLastCheckUpdate(newCheckUpdateTime));
-        questionRepository.saveAll(updatedQuestions);
+    public void updateAllAndSetCheckUpdateTime(List<StackOverflowQuestion> updatedQuestions, ZonedDateTime newCheckUpdateTime) {
+        updatedQuestions.forEach(question -> {
+            var dbQuestion = questionRepository.findByQuestionId(question.getQuestionId()).get();
+            mapper.update(dbQuestion, question);
+            dbQuestion.setLastCheckUpdate(newCheckUpdateTime);
+        });
     }
 
     @Override

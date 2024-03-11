@@ -1,14 +1,11 @@
 package com.victor.kochnev.plugin.stackoverflow.converter;
 
-import com.victor.kochnev.integration.plugin.api.dto.WebResourceDto;
+import com.victor.kochnev.platform.api.dto.WebResourceDto;
 import com.victor.kochnev.plugin.stackoverflow.api.dto.AnswerDto;
 import com.victor.kochnev.plugin.stackoverflow.api.dto.QuestionDto;
 import com.victor.kochnev.plugin.stackoverflow.entity.StackOverflowQuestion;
 import com.victor.kochnev.plugin.stackoverflow.entity.value.object.StackOverflowAnswer;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.NullValuePropertyMappingStrategy;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 
 import java.time.Instant;
 import java.time.ZoneOffset;
@@ -27,6 +24,9 @@ public interface StackOverflowMapper {
     @Mapping(target = "commentsList", ignore = true)
     @Mapping(target = "lastCheckUpdate", ignore = true)
     StackOverflowQuestion mapToEntity(QuestionDto question, List<AnswerDto> answersList);
+
+    @BlankEntityMapping
+    void update(@MappingTarget StackOverflowQuestion question, StackOverflowQuestion updated);
 
     List<StackOverflowAnswer> mapToValueObject(List<AnswerDto> answerList);
 
