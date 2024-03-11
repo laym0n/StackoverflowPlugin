@@ -1,6 +1,7 @@
 package com.victor.kochnev.plugin.stackoverflow.config;
 
 import com.victor.kochnev.plugin.stackoverflow.ComponentScanMarker;
+import com.victor.kochnev.plugin.stackoverflow.config.integration.StackOverflowClientProperties;
 import com.victor.kochnev.plugin.stackoverflow.entity.EntityScanMarker;
 import com.victor.kochnev.plugin.stackoverflow.repository.RepositoryScanMarker;
 import org.springframework.boot.autoconfigure.domain.EntityScan;

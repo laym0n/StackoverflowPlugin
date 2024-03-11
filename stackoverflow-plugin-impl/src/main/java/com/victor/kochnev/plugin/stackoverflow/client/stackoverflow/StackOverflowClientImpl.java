@@ -3,7 +3,7 @@ package com.victor.kochnev.plugin.stackoverflow.client.stackoverflow;
 import com.victor.kochnev.plugin.stackoverflow.api.dto.AnswersResponseDto;
 import com.victor.kochnev.plugin.stackoverflow.api.dto.ErrorResponseDto;
 import com.victor.kochnev.plugin.stackoverflow.api.dto.QuestionsResponseDto;
-import com.victor.kochnev.plugin.stackoverflow.config.StackOverflowClientProperties;
+import com.victor.kochnev.plugin.stackoverflow.config.integration.StackOverflowClientProperties;
 import com.victor.kochnev.plugin.stackoverflow.exception.StackOverflowIntegrationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatusCode;

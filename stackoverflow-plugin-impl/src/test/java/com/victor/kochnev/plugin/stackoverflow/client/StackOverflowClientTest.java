@@ -4,7 +4,7 @@ import com.github.tomakehurst.wiremock.client.WireMock;
 import com.victor.kochnev.plugin.stackoverflow.BaseBootTest;
 import com.victor.kochnev.plugin.stackoverflow.api.dto.*;
 import com.victor.kochnev.plugin.stackoverflow.client.stackoverflow.StackOverflowClient;
-import com.victor.kochnev.plugin.stackoverflow.config.StackOverflowClientProperties;
+import com.victor.kochnev.plugin.stackoverflow.config.integration.StackOverflowClientProperties;
 import com.victor.kochnev.plugin.stackoverflow.exception.StackOverflowIntegrationException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

@@ -3,7 +3,7 @@ package com.victor.kochnev.plugin.stackoverflow.service.webclient;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.stubbing.Scenario;
 import com.victor.kochnev.plugin.stackoverflow.BaseBootTest;
-import com.victor.kochnev.plugin.stackoverflow.config.StackOverflowClientProperties;
+import com.victor.kochnev.plugin.stackoverflow.config.integration.StackOverflowClientProperties;
 import com.victor.kochnev.plugin.stackoverflow.entity.StackOverflowQuestion;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -6,7 +6,7 @@ import com.victor.kochnev.platform.api.dto.WebResourceAddRequest;
 import com.victor.kochnev.platform.api.dto.WebResourceDto;
 import com.victor.kochnev.plugin.stackoverflow.BaseControllerTest;
 import com.victor.kochnev.plugin.stackoverflow.api.dto.*;
-import com.victor.kochnev.plugin.stackoverflow.config.StackOverflowClientProperties;
+import com.victor.kochnev.plugin.stackoverflow.config.integration.StackOverflowClientProperties;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

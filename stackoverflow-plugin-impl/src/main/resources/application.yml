@@ -1,0 +1,24 @@
+server:
+  port: ${ev.server.port:8080}
+
+spring:
+  liquibase:
+    enabled: true
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: ${ev.spring.datasource.username}
+    password: ${ev.spring.datasource.password}
+    url: ${ev.spring.datasource.url}
+
+app:
+  integration:
+    stackoverflow:
+      host: ${ev.app.integration.stackoverflow.host}
+      key: ${ev.app.integration.stackoverflow.key}
+    platform:
+      base-path: ${ev.app.integration.platform.base-path}
+      username: ${ev.app.integration.platform.username}
+      password: ${ev.app.integration.platform.password}
+  scheduling:
+    enabled: true
+    interval: ${ev.app.scheduling.interval:300000}

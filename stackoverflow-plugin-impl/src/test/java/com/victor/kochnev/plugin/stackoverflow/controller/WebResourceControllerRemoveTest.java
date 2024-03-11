@@ -3,7 +3,7 @@ package com.victor.kochnev.plugin.stackoverflow.controller;
 import com.victor.kochnev.platform.api.dto.WebResourceRemoveRequest;
 import com.victor.kochnev.plugin.stackoverflow.BaseControllerTest;
 import com.victor.kochnev.plugin.stackoverflow.builder.StackOverflowQuestionBuilder;
-import com.victor.kochnev.plugin.stackoverflow.config.StackOverflowClientProperties;
+import com.victor.kochnev.plugin.stackoverflow.config.integration.StackOverflowClientProperties;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
