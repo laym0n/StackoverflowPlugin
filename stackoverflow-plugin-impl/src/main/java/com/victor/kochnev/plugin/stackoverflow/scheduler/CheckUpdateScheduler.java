@@ -11,7 +11,7 @@ import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
 @Component
-@ConditionalOnProperty(value = "app.scheduling.enable", havingValue = "true")
+@ConditionalOnProperty(value = "app.scheduling.enabled", havingValue = "true")
 @RequiredArgsConstructor
 public class CheckUpdateScheduler {
     private final WebResourceFacade webResourceFacade;

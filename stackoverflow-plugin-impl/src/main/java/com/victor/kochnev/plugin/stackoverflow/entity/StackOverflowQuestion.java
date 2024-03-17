@@ -32,7 +32,7 @@ public class StackOverflowQuestion extends BaseEntity {
     @Column(name = "last_check_update", nullable = false)
     @Builder.Default
     private ZonedDateTime lastCheckUpdate = ZonedDateTime.now();
-    @Column(name = "answers")
+    @Column(name = "answers", length = 1024)
     @Convert(converter = StackOverflowAnswerConverter.class)
     @Builder.Default
     private List<StackOverflowAnswer> answersList = new ArrayList<>();

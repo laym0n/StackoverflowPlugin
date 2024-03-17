@@ -11,6 +11,10 @@
 
     <artifactId>stackoverflow-plugin-impl</artifactId>
 
+    <properties>
+        <dockerfile.skip>true</dockerfile.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.victor.kochnev</groupId>
