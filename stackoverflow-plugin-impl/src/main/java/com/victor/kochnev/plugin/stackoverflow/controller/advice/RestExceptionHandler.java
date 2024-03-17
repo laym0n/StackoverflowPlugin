@@ -26,7 +26,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<Object> handleTopLevelException(ResourceNotFoundException ex, WebRequest request) {
-        log.error(ExceptionUtils.getMessage(ex));
+        log.error(ExceptionUtils.getMessage(ex), ex);
         ErrorMessageDto errorMessageDto = new ErrorMessageDto();
         errorMessageDto.setMessage("Not found " + ExceptionUtils.getMessage(ex));
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessageDto);
@@ -34,7 +34,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(StackOverflowIntegrationException.class)
     public ResponseEntity<Object> handleTopLevelException(StackOverflowIntegrationException ex, WebRequest request) {
-        log.error(ExceptionUtils.getMessage(ex));
+        log.error(ExceptionUtils.getMessage(ex), ex);
         ErrorResponseDto errorResponseDto = ex.getErrorResponseDto();
         ErrorMessageDto errorMessageDto = new ErrorMessageDto();
         errorMessageDto.setMessage("Get " + errorResponseDto.getErrorId() + " from StackOverflow");
@@ -43,25 +43,25 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleTopLevelException(Exception ex, WebRequest request) {
-        log.error(ExceptionUtils.getMessage(ex));
+        log.error(ExceptionUtils.getMessage(ex), ex);
         return ResponseEntity.internalServerError().build();
     }
 
     @Override
     protected ResponseEntity<Object> handleErrorResponseException(ErrorResponseException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-        log.error(ExceptionUtils.getMessage(ex));
+        log.error(ExceptionUtils.getMessage(ex), ex);
         return super.handleErrorResponseException(ex, headers, status, request);
     }
 
     @Override
     protected ResponseEntity<Object> handleMissingServletRequestParameter(MissingServletRequestParameterException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-        log.error(ExceptionUtils.getMessage(ex));
+        log.error(ExceptionUtils.getMessage(ex), ex);
         return super.handleMissingServletRequestParameter(ex, headers, status, request);
     }
 
     @Override
     protected ResponseEntity<Object> handleMissingServletRequestPart(MissingServletRequestPartException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-        log.error(ExceptionUtils.getMessage(ex));
+        log.error(ExceptionUtils.getMessage(ex), ex);
         return super.handleMissingServletRequestPart(ex, headers, status, request);
     }
 

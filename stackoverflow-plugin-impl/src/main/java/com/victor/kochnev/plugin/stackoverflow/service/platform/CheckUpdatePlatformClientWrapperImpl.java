@@ -7,12 +7,15 @@ import com.victor.kochnev.platform.client.NotificationClient;
 import com.victor.kochnev.plugin.stackoverflow.converter.StackOverflowMapper;
 import com.victor.kochnev.plugin.stackoverflow.service.checkupdate.UpdatedResource;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CheckUpdatePlatformClientWrapperImpl implements CheckUpdatePlatformClientWrapper {
     private final NotificationClient notificationClient;
     private final StackOverflowMapper stackOverflowMapper;
@@ -30,7 +33,14 @@ public class CheckUpdatePlatformClientWrapperImpl implements CheckUpdatePlatform
 
         NotificationDto notificationDto = mapToDto(updatedResource);
         requestBody.setNotification(notificationDto);
-        notificationClient.create(requestBody).block();
+        log.info("Request to platform {}", requestBody);
+        try {
+            notificationClient.create(requestBody).block();
+        } catch (Exception e) {
+            log.error("Error response from platform {}", ExceptionUtils.getMessage(e));
+            throw e;
+        }
+        log.info("Success response from platform");
     }
 
     private NotificationDto mapToDto(UpdatedResource updatedResource) {
