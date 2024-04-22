@@ -12,4 +12,6 @@ public interface WebResourceFacade {
     void removeFromObserve(WebResourceRemoveRequest request);
 
     void checkUpdateWebResources(Duration minimalTimeBetweenChecks);
+
+    WebResourceDto continueForObserve(WebResourceContinueObservingRequest request);
 }

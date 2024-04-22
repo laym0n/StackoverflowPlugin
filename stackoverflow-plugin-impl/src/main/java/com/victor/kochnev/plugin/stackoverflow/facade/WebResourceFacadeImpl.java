@@ -54,6 +54,15 @@ public class WebResourceFacadeImpl implements WebResourceFacade {
     @Override
     public WebResourceDto addForObserve(WebResourceAddRequest request) {
         Long questionId = parserService.parseQuestionId(request.getDescription());
+        return createWebResourceByQuestionId(questionId);
+    }
+
+    @Override
+    public WebResourceDto continueForObserve(WebResourceContinueObservingRequest request) {
+        return createWebResourceByQuestionId(Long.valueOf(request.getName()));
+    }
+
+    private WebResourceDto createWebResourceByQuestionId(Long questionId) {
         StackOverflowQuestion stackOverflowQuestion = stackOverflowClientWrapperService.getStackOverflowInfo(questionId);
 
         stackOverflowQuestion = webResourceService.create(stackOverflowQuestion);

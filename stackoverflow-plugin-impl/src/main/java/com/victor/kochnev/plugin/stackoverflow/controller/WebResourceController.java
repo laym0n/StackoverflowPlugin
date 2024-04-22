@@ -3,6 +3,7 @@ package com.victor.kochnev.plugin.stackoverflow.controller;
 import com.victor.kochnev.platform.api.WebResourceApi;
 import com.victor.kochnev.platform.api.dto.*;
 import com.victor.kochnev.plugin.stackoverflow.facade.WebResourceFacade;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class WebResourceController implements WebResourceApi {
     private static final String ADD_ENDPOINT = "POST /webresource";
     private static final String CAN_OBSERVE_ENDPOINT = "POST /webresource/can/observe";
+    private static final String CONTINUE_OBSERVE_ENDPOINT = "PUT /webresource";
     private static final String REMOVE_ENDPOINT = "DELETE /webresource";
     private final WebResourceFacade webResourceFacade;
 
@@ -28,6 +30,18 @@ public class WebResourceController implements WebResourceApi {
 
         log.info("Success execute {}", ADD_ENDPOINT);
         log.debug("Success execute {} {}", ADD_ENDPOINT, webResourceDto);
+        return ResponseEntity.ok(webResourceDto);
+    }
+
+    @Override
+    public ResponseEntity<WebResourceDto> callContinue(@Valid WebResourceContinueObservingRequest request) {
+        log.info("Get request {}", CONTINUE_OBSERVE_ENDPOINT);
+        log.debug("Get request {} {}", CONTINUE_OBSERVE_ENDPOINT, request);
+
+        WebResourceDto webResourceDto = webResourceFacade.continueForObserve(request);
+
+        log.info("Success execute {}", CONTINUE_OBSERVE_ENDPOINT);
+        log.debug("Success execute {} {}", CONTINUE_OBSERVE_ENDPOINT, webResourceDto);
         return ResponseEntity.ok(webResourceDto);
     }
 

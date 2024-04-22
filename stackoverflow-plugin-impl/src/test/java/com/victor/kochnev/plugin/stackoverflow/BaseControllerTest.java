@@ -29,6 +29,12 @@ public abstract class BaseControllerTest extends BaseBootTest {
     }
 
     @SneakyThrows
+    public MvcResult put(String uri, Object body) {
+        var request = getRequest(uri, body, HttpMethod.PUT);
+        return mvc.perform(request).andReturn();
+    }
+
+    @SneakyThrows
     public MvcResult delete(String uri, Object body) {
         var request = getRequest(uri, body, HttpMethod.DELETE);
         return mvc.perform(request).andReturn();
