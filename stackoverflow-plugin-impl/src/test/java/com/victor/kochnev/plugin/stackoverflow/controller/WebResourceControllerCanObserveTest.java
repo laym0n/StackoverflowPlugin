@@ -53,7 +53,7 @@ class WebResourceControllerCanObserveTest extends BaseControllerTest {
         WebResourceDto webResource = actualResponse.getWebResource();
         assertNotNull(webResource);
         assertEquals(questionId.toString(), webResource.getName());
-        assertEquals(title, webResource.getDescription());
+        assertEquals(title, webResource.getDescriptionHeader());
 
         var optionalDbQuestion = questionRepository.findByQuestionId(questionId);
         assertFalse(optionalDbQuestion.isPresent());

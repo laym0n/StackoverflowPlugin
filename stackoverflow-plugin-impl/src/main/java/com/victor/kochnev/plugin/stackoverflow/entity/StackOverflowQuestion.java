@@ -29,6 +29,8 @@ public class StackOverflowQuestion extends BaseEntity {
     private Long questionId;
     @Column(name = "title", nullable = false)
     private String title;
+    @Column(name = "description", nullable = false)
+    private String description;
     @Column(name = "last_check_update", nullable = false)
     @Builder.Default
     private ZonedDateTime lastCheckUpdate = ZonedDateTime.now();

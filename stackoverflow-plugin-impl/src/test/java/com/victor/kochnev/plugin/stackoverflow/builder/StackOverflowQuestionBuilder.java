@@ -8,6 +8,7 @@ import java.util.UUID;
 public class StackOverflowQuestionBuilder {
     public static final Long DEFAULT_QUESTION_ID = 1L;
     public static final String DEFAULT_TITLE = "Title";
+    public static final String DEFAULT_DESCRIPTION = "Description";
 
     private StackOverflowQuestionBuilder() {
     }
@@ -15,6 +16,7 @@ public class StackOverflowQuestionBuilder {
     public static StackOverflowQuestion.StackOverflowQuestionBuilder<?, ?> defaultBuilder() {
         return StackOverflowQuestion.builder()
                 .questionId(DEFAULT_QUESTION_ID)
+                .description(DEFAULT_DESCRIPTION)
                 .title(DEFAULT_TITLE);
     }
 
@@ -29,6 +31,7 @@ public class StackOverflowQuestionBuilder {
     public static StackOverflowQuestion.StackOverflowQuestionBuilder<?, ?> postfixBuilder(Long postfix) {
         return StackOverflowQuestion.builder()
                 .questionId(postfix)
+                .description(DEFAULT_DESCRIPTION)
                 .title(DEFAULT_TITLE);
     }
 

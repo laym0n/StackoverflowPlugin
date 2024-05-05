@@ -23,6 +23,7 @@ public interface StackOverflowMapper {
     @Mapping(target = "answersList", source = "answersList")
     @Mapping(target = "commentsList", ignore = true)
     @Mapping(target = "lastCheckUpdate", ignore = true)
+    @Mapping(target = "description", source = "answersList", qualifiedByName = "mapToDescription")
     StackOverflowQuestion mapToEntity(QuestionDto question, List<AnswerDto> answersList);
 
     @BlankEntityMapping
@@ -36,10 +37,22 @@ public interface StackOverflowMapper {
     StackOverflowAnswer mapToValueObject(AnswerDto answerList);
 
     @Mapping(target = "name", source = "questionId")
-    @Mapping(target = "description", source = "title")
+    @Mapping(target = "descriptionHeader", source = "title")
     WebResourceDto mapToDto(StackOverflowQuestion question);
 
     default ZonedDateTime mapToLocalDateTime(Long aLong) {
         return ZonedDateTime.ofInstant(Instant.ofEpochSecond(aLong), ZoneOffset.UTC);
+    }
+
+    @Named("mapToDescription")
+    default String mapToDescription(List<AnswerDto> answersList) {
+        if (answersList == null) {
+            return "Количество ответов 0";
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("Количество ответов ").append(answersList.size()).append("\n");
+        answersList
+                .forEach(answer -> sb.append("Ответ от пользователя ").append(answer.getOwner().getDisplayName()).append("\n"));
+        return sb.toString();
     }
 }

@@ -46,7 +46,7 @@ class WebResourceControllerContinueTest extends BaseControllerTest {
         assertHttpStatusOk(mvcResult);
         WebResourceDto actualResponse = getResponseDto(mvcResult, WebResourceDto.class);
         assertEquals(questionId.toString(), actualResponse.getName());
-        assertEquals(title, actualResponse.getDescription());
+        assertEquals(title, actualResponse.getDescriptionHeader());
 
         var optionalDbQuestion = questionRepository.findByQuestionId(questionId);
         assertTrue(optionalDbQuestion.isPresent());
